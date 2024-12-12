@@ -1,0 +1,56 @@
+{% extends 'components/guestLayout.html' %}
+
+{% block title %}Visitor Out{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-9 py-6">
+    <h1 class="text-2xl font-bold mb-4">Visitor Out</h1>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded shadow-md">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2 border">Name</th>
+                    <th class="px-4 py-2 border">Contact</th>
+                    <th class="px-4 py-2 border">Address</th>
+                    <th class="px-4 py-2 border">To Who</th>
+                    <th class="px-4 py-2 border">Purpose</th>
+                    <th class="px-4 py-2 border">Status</th>
+                    <th class="px-4 py-2 border">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for visitor in visitors %}
+                <tr class="hover:bg-gray-100">
+                    <td class="px-4 py-2 border">{{ visitor.name }}</td>
+                    <td class="px-4 py-2 border">{{ visitor.contact }}</td>
+                    <td class="px-4 py-2 border">{{ visitor.address }}</td>
+                    <td class="px-4 py-2 border">{{ visitor.to_whom }}</td>
+                    <td class="px-4 py-2 border">{{ visitor.purpose }}</td>
+                    <td class="px-4 py-2 border" 
+                        style="background-color: 
+                            {% if visitor.status == 'Pending' %}#fef08a; /* yellow-200 */
+                            {% elif visitor.status == 'Approved' %}#bbf7d0; /* green-200 */
+                            {% elif visitor.status == 'Declined' %}#fecaca; /* red-200 */
+                            {% else %}#ffffff; /* default white */
+                            {% endif %}">
+                        {{ visitor.status }}
+                    </td>
+                    <td class="px-4 py-2 border">
+                        <form method="POST" action="{% url 'visitor_out_action' visitor.id %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">
+                                Mark Out
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center px-4 py-2 border">No visitors currently "In".</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

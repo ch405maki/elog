@@ -12,6 +12,8 @@ urlpatterns = [
 
     path('visitors/pending/', views.pending_visitors, name='pending_visitors'),
     path('visitors/approved/', views.approved_visitors, name='approved_visitors'),
+    path('visitor-out/', views.visitor_out_view, name='visitor_out'),
+    path('visitor-out/<int:visitor_id>/', views.mark_visitor_out, name='visitor_out_action'),
 
     path('approve/<int:id>/', views.approve_visitor, name='approve_visitor'),
     path('decline/<int:id>/', views.decline_visitor, name='decline_visitor'),
@@ -23,5 +25,6 @@ urlpatterns = [
     path('delete_user/<int:user_id>/', views.delete_user, name='delete_user'),
     path('accounts/<int:user_id>/', views.user_detail, name='user_detail'),
     path('accounts/create/', views.create_user, name='create_user'),
+    
 
 ]

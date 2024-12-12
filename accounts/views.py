@@ -129,9 +129,9 @@ def save_visitor_log(request):
             to_whom=to_whom,
         )
         messages.success(request, 'Visitor log entry saved successfully!')
-        return redirect('visitor.index')
+        return redirect('visitor_out')
 
-    return render(request, 'visitor/index.html')
+    return render(request, 'visitor/visitor_out.html')
 
 @login_required
 def dashboard(request):
@@ -214,3 +214,18 @@ def create_user(request):
         user.save()
         return redirect('account_index')
 
+# View to display visitors with action 'In'
+def visitor_out_view(request):
+    visitors = VisitorLog.objects.filter(action='In')  # Filter visitors with action "In"
+    context = {
+        'visitors': visitors,
+    }
+    return render(request, 'visitor/visitor_out.html', context)
+
+# View to handle "Out" action
+def mark_visitor_out(request, visitor_id):
+    visitor = get_object_or_404(VisitorLog, id=visitor_id)
+    if request.method == 'POST':
+        visitor.action = 'Out'
+        visitor.save()
+    return redirect('visitor_out')

@@ -22,6 +22,8 @@ class Profile(models.Model):
         return f"{self.user.username}'s Profile"
     
 
+from django.db import models
+
 class VisitorLog(models.Model):
     DEPARTMENT_CHOICES = [
         ('HR', 'HR'),
@@ -34,6 +36,10 @@ class VisitorLog(models.Model):
         ('Approved', 'Approved'),
         ('Denied', 'Denied'),
     ]
+    ACTION_CHOICES = [
+        ('In', 'In'),
+        ('Out', 'Out'),
+    ]
 
     department = models.CharField(max_length=50, choices=DEPARTMENT_CHOICES)
     name = models.CharField(max_length=255)
@@ -43,6 +49,7 @@ class VisitorLog(models.Model):
     contact = models.CharField(max_length=15)
     to_whom = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
+    action = models.CharField(max_length=10, choices=ACTION_CHOICES, default='In')
 
     def __str__(self):
         return f"{self.name} - {self.department}"

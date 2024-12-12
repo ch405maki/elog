@@ -3,39 +3,48 @@
 {% block title %}Pending Visitors{% endblock %}
 
 {% block content %}
-<h1 class="text-2xl font-bold mb-4 text-gray-800">Pending Visitors</h1>
+<div class="mb-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-800">Pending Visitors</h1>
+    <h1 class="text-sm font-normal text-gray-700">Dashboard > Visitor > Pending Visitors</h1>
+</div>
 <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200 rounded shadow-md">
+    <table class="min-w-full bg-white border border-gray-200 rounded shadow-md text-sm">
         <thead class="bg-gray-200">
             <tr>
-                <th class="px-4 py-2 border">Name</th>
-                <th class="px-4 py-2 border">Department</th>
-                <th class="px-4 py-2 border">Purpose</th>
-                <th class="px-4 py-2 border">Contact</th>
-                <th class="px-4 py-2 border">Actions</th>
+                <th class="px-2 py-2 border">Date | Time</th>
+                <th class="px-2 py-2 border">Name</th>
+                <th class="px-2 py-2 border">Contact</th>
+                <th class="px-2 py-2 border">Address</th>
+                <th class="px-2 py-2 border">To Who</th>
+                <th class="px-2 py-2 border">Purpose</th>
+                <th class="px-2 py-2 border">Department</th>
+                <th class="px-2 py-2 border">Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for visitor in visitors %}
             <tr class="hover:bg-gray-100">
-                <td class="px-4 py-2 border">{{ visitor.name }}</td>
-                <td class="px-4 py-2 border">{{ visitor.department }}</td>
-                <td class="px-4 py-2 border">{{ visitor.purpose }}</td>
-                <td class="px-4 py-2 border">{{ visitor.contact }}</td>
-                <td class="px-4 py-2 border text-center">
+                <td class="px-2 py-2 border">{{ visitor.created_at }}</td>
+                <td class="px-2 py-2 border">{{ visitor.name }}</td>
+                <td class="px-2 py-2 border">{{ visitor.contact }}</td>
+                <td class="px-2 py-2 border">{{ visitor.address }}</td>
+                <td class="px-2 py-2 border">{{ visitor.to_whom }}</td>
+                <td class="px-2 py-2 border">{{ visitor.purpose }}</td>
+                <td class="px-2 py-2 border">{{ visitor.department }}</td>
+                <td class="px-2 py-2 border text-center">
                     <form action="{% url 'approve_visitor' visitor.id %}" method="post" class="inline-block">
                         {% csrf_token %}
-                        <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Approve</button>
+                        <button type="submit" class="bg-green-500 text-white px-2 py-0.5 rounded hover:bg-green-600">Approve</button>
                     </form>
                     <form action="{% url 'decline_visitor' visitor.id %}" method="post" class="inline-block">
                         {% csrf_token %}
-                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Decline</button>
+                        <button type="submit" class="bg-red-500 text-white px-2 py-0.5 rounded hover:bg-red-600">Decline</button>
                     </form>
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5" class="text-center px-4 py-2 border">No pending visitors.</td>
+                <td colspan="8" class="text-center px-2 py-2 border">No pending visitors.</td>
             </tr>
             {% endfor %}
         </tbody>

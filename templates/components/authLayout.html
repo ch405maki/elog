@@ -16,15 +16,15 @@
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
     <!-- Top Navbar -->
-    <div class="fixed top-0 left-0 w-full z-50 bg-white border-b backdrop-blur-lg bg-opacity-80">
-        <div class="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8 ">
+    <div class="fixed top-0 left-0 w-full z-50 bg-zinc-700 border-b ">
+        <div class="mx-auto max-w-full px-6 ">
             <div class="relative flex h-16 justify-between">
                 <div class="flex flex-1 items-stretch justify-start">
                     <a class="flex flex-shrink-0 items-center" href="#">
-                        <h1 class="text-xl font-bold tracking-tight text-blue-600">Visitors E-Log System</h1>
+                        <h1 class="text-xl font-bold tracking-tight text-white">Visitors E-Log System</h1>
                     </a>
                 </div>
-                <div class="flex-shrink-0 flex px-2 py-3 items-center space-x-4">
+                <div class="flex-shrink-0 flex py-3 items-center space-x-4">
                     {% if user.is_authenticated %}
                         <!-- Profile Picture -->
                         <img src="{{ user.profile.image.url|default:'https://via.placeholder.com/40' }}" 
@@ -32,7 +32,7 @@
                              class="w-10 h-10 rounded-full border border-gray-300">
                         
                         <!-- Welcome Message -->
-                        <div class="text-gray-800">
+                        <div class="text-white">
                             <span class="font-medium">Welcome, {{ user.username }}</span>
                         </div>
                     {% endif %}
@@ -45,29 +45,35 @@
     <!-- Layout with Sidebar -->
     <div class="flex pt-16">
         <!-- Sidebar -->
-        <nav class="bg-blue-600 text-white w-64 min-h-screen flex-shrink-0">
+        <nav class="bg-zinc-600 text-white w-64 min-h-screen flex-shrink-0">
             <div class="px-6 py-4">
-                <h2 class="text-lg font-semibold">Navigation</h2>
-                <ul class="mt-6 space-y-4">
+                <h2 class="text-xs text-zinc-400 font-semibold uppercase">Navigation</h2>
+                <ul class="mt-4 space-y-4">
                     <li>
-                        <a href="{% url 'dashboard' %}" class="flex items-center px-4 py-2 text-white hover:bg-blue-700 rounded">
+                        <a href="{% url 'dashboard' %}" class="flex items-center px-4 py-2 text-white hover:bg-zinc-700 rounded">
+                            <svg class="w-6 h-6 text-gray-100 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
+                            </svg>
                             Dashboard
                         </a>
                     </li>
                     <li>
                         <div>
-                            <button onclick="toggleDropdown('manageVisitorDropdown')" class="flex items-center w-full px-4 py-2 text-white hover:bg-blue-700 rounded focus:outline-none">
-                                Manage Visitor
+                            <button onclick="toggleDropdown('manageVisitorDropdown')" class="flex items-center w-full px-4 py-2 text-white hover:bg-zinc-700 rounded focus:outline-none">
+                                <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15v4m6-6v6m6-4v4m6-6v6M3 11l6-5 6 5 5.5-5.5"/>
+                                  </svg>
+                                  Manage Visitor
                                 <svg class="w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </button>
-                            <ul id="manageVisitorDropdown" class="hidden bg-blue-700 mt-2 rounded">
+                            <ul id="manageVisitorDropdown" class="hidden bg-zinc-700 mt-2 rounded">
                                 <li>
-                                    <a href="{% url 'pending_visitors' %}" class="block px-4 py-2 hover:bg-blue-800">Pending Visitor</a>
+                                    <a href="{% url 'pending_visitors' %}" class="block px-4 py-2 hover:bg-zinc-800">Pending Visitor</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'approved_visitors' %}" class="block px-4 py-2 hover:bg-blue-800">Approved Visitor</a>
+                                    <a href="{% url 'approved_visitors' %}" class="block px-4 py-2 hover:bg-zinc-800">Approved Visitor</a>
                                 </li>
                             </ul>
                         </div>
@@ -75,33 +81,39 @@
                     
                     <li>
                         <div>
-                            <button onclick="toggleDropdown('reportsDropdown')" class="flex items-center w-full px-4 py-2 text-white hover:bg-blue-700 rounded focus:outline-none">
-                                Reports
+                            <button onclick="toggleDropdown('reportsDropdown')" class="flex items-center w-full px-4 py-2 text-white hover:bg-zinc-700 rounded focus:outline-none">
+                                <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                                  </svg>
+                                  Reports
                                 <svg class="w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </button>
-                            <ul id="reportsDropdown" class="hidden bg-blue-700 mt-2 rounded">
+                            <ul id="reportsDropdown" class="hidden bg-zinc-700 mt-2 rounded">
                                 <li>
-                                    <a href="{% url 'visitor_reports' %}" class="block px-4 py-2 hover:bg-blue-800">Visitors Reports</a>
+                                    <a href="{% url 'visitor_reports' %}" class="block px-4 py-2 hover:bg-zinc-800">Visitors Reports</a>
                                 </li>
                             </ul>
                         </div>
                     </li>
                     <li>
                         <div>
-                            <button onclick="toggleDropdown('accountDropdown')" class="flex items-center w-full px-4 py-2 text-white hover:bg-blue-700 rounded focus:outline-none">
-                                Account
+                            <button onclick="toggleDropdown('accountDropdown')" class="flex items-center w-full px-4 py-2 text-white hover:bg-zinc-700 rounded focus:outline-none">
+                                <svg class="w-6 h-6 mr-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9h3m-3 3h3m-3 3h3m-6 1c-.306-.613-.933-1-1.618-1H7.618c-.685 0-1.312.387-1.618 1M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                                  </svg>
+                                  Account
                                 <svg class="w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                 </svg>
                             </button>
-                            <ul id="accountDropdown" class="hidden bg-blue-700 mt-2 rounded">
+                            <ul id="accountDropdown" class="hidden bg-zinc-700 mt-2 rounded">
                                 <li>
-                                    <a href="{% url 'account_index' %}" class="block px-4 py-2 hover:bg-blue-800">View</a>
+                                    <a href="{% url 'account_index' %}" class="block px-4 py-2 hover:bg-zinc-800">View</a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'account_manage' %}" class="block px-4 py-2 hover:bg-blue-800">Manage</a>
+                                    <a href="{% url 'account_manage' %}" class="block px-4 py-2 hover:bg-zinc-800">Manage</a>
                                 </li>
                             </ul>
                         </div>
@@ -114,7 +126,11 @@
                             {% if user.is_authenticated %}
                             <form action="{% url 'logout' %}" method="post" style="display:inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="text-gray-800 hover:text-white bg-indigo-100 hover:bg-red-400 inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm ">Logout</button>
+                                <button type="submit" class="text-white  hover:text-red-400 inline-flex items-center justify-center px-3 py-2 border border-transparent font-medium">
+                                    <svg class="w-6 h-6 mr-2 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
+                                      </svg>
+                                      Logout</button>
                             </form>
                             {% endif %}
                         </div>
