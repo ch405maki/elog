@@ -27,7 +27,7 @@
                 <div class="flex-shrink-0 flex py-3 items-center space-x-4">
                     {% if user.is_authenticated %}
                         <!-- Profile Picture -->
-                        <img src="{{ user.profile.image.url|default:'https://via.placeholder.com/40' }}" 
+                        <img src="{% static 'image/user.jpg' %}"
                              alt="Profile Picture" 
                              class="w-10 h-10 rounded-full border border-gray-300">
                         
@@ -148,7 +148,7 @@
     </div>
     
     <!-- Footer -->
-    <footer class="text-center p-4 bg-gray-100 text-sky-600">
+    <footer class="text-center p-4 bg-gray-100 text-zinc-600">
         &copy; 2024 Visitors E-Log System
     </footer>
 </body>

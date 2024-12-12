@@ -3,72 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}User Registration{% endblock %}</title>
+    <title>{% block title %}E-Log{% endblock %}</title>
     {% load static %}
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
+<body class="bg-white min-h-screen flex flex-col">
     <!-- Navigation Bar -->
     {% include 'components/nav.html' %}
-    <div class="w-screen min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div class="relative py-3 sm:max-w-xs sm:mx-auto">
-            <div class="min-h-96 w-[350px] px-8 py-6 mt-4 text-left bg-white dark:bg-gray-900 rounded-xl shadow-lg">
-                <div class="flex flex-col justify-center items-center h-full select-none">
-                    <div class="flex flex-col items-center justify-center gap-2 mb-8">
-                        <a href="/" target="_blank">
-                            <img class="mx-auto h-16 w-auto" src="https://www.svgrepo.com/show/499664/user-happy.svg" alt="User Icon" />
-                        </a>
-                        <p class="m-0 text-[16px] font-semibold dark:text-white">Login to your Account</p>
-                    </div>
+    <div class="contain py-16 mt-16">
+        <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+            <h2 class="text-2xl uppercase font-medium mb-1">Login</h2>
+            <p class="text-gray-600 mb-6 text-sm">Welcome! So good to have you back!</p>
+            <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            <p class="text-red-500"></p>
+            <div class="space-y-2">
+                <div><label for="id_username" class="text-gray-600 mb-2 block"></label>Username
+                <input 
+                id="id_username"
+                name="username"  
+                class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400" 
+                placeholder="Username" 
+                required
+                >
                 </div>
-                <form method="POST" class="space-y-4">
-                    {% csrf_token %}
-                    <div class="w-full flex flex-col gap-2">
-                        <label for="id_username" class="font-semibold text-xs text-gray-400">Username</label>
-                        <input 
-                            id="id_username"
-                            name="username" 
-                            class="border rounded-lg px-3 py-2 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900" 
-                            placeholder="Username" 
-                            required
-                        />
-                    </div>
-                    <div class="w-full flex flex-col gap-2">
-                        <label for="id_password" class="font-semibold text-xs text-gray-400">Password</label>
-                        <input 
-                            id="id_password"
-                            name="password" 
-                            type="password" 
-                            class="border rounded-lg px-3 py-2 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900" 
-                            placeholder="••••••••" 
-                            required
-                        />
-                    </div>
-                    <div class="mt-5">
-                        <button 
-                            type="submit" 
-                            class="py-1 px-8 bg-blue-500 hover:bg-blue-800 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg cursor-pointer select-none">
-                            Login
-                        </button>
-                    </div>
-                    <div>already have an account? <a href="{% url 'register' %}" class="text-blue-500 hover:underline">Sign up</a></div>
-                </form>
-                {% if form.errors %}
-                <div class="mt-4 text-red-600 text-sm">
-                    <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for error in form.non_field_errors %}
+            </div>
+    
+            <div class="space-y-2">
+                <div><label for="id_password" class="text-gray-600 mb-2 block"></label>Password<div class="relative">
+                    <input 
+                    id="id_password"
+                    name="password" 
+                    type="password"  
+                    class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400" 
+                    placeholder="***********"
+                    required
+                    oninput="togglePasswordType(this)"
+                >
+                <div 
+                    class="cursor-pointer absolute inset-y-0 right-0 flex items-center px-8 text-gray-600 border-l border-gray-300"
+                    onclick="togglePasswordType(document.getElementById('id_password'))"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="block w-full py-2 text-center text-white bg-zinc-500 border border-zinc-500 rounded hover:bg-zinc-600 hover:text-white transition uppercase font-roboto font-medium">Login</button>
+            </div>
+            </form>
+            {% if form.errors %}
+            <div class="mt-4 text-red-600 text-sm">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
                             <li>{{ error }}</li>
                         {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             </div>
+            {% endif %}
         </div>
-    </div>
+        </div> 
+        <script>
+            function togglePasswordType(input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                } else {
+                    input.type = 'password';
+                }
+            }
+        </script>
 </body>
 </html>
+
+
