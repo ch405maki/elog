@@ -1,0 +1,31 @@
+{% extends 'components/authLayout.html' %}
+
+{% block title %}Approved Visitors{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Approved Visitors</h1>
+<table class="min-w-full bg-white border border-gray-200 rounded">
+    <thead class="bg-gray-200">
+        <tr>
+            <th class="px-4 py-2 border">Name</th>
+            <th class="px-4 py-2 border">Department</th>
+            <th class="px-4 py-2 border">Purpose</th>
+            <th class="px-4 py-2 border">Contact</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for visitor in visitors %}
+        <tr>
+            <td class="px-4 py-2 border">{{ visitor.name }}</td>
+            <td class="px-4 py-2 border">{{ visitor.department}}</td>
+            <td class="px-4 py-2 border">{{ visitor.purpose }}</td>
+            <td class="px-4 py-2 border">{{ visitor.contact }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center px-4 py-2 border">No approved visitors.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

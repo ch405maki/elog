@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkest: '#2a3e30',
+                        mid: '#6e948a',
+                        light: '#97ada7',
+                        white: '#ffffff',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body>
+    <div class="fixed top-0 left-0 w-full z-50 bg-white border-b backdrop-blur-lg bg-opacity-80">
+        <div class="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8 ">
+            <div class="relative flex h-16 justify-between">
+                <div class="flex flex-1 items-stretch justify-start">
+                    <a class="flex flex-shrink-0 items-center" href="{% url 'landingPage'%}">
+                        <h1 class="text-xl font-bold tracking-tight text-sky-700">Visitors E-Log System</h1>
+                    </a>
+                </div>
+                <div class="flex-shrink-0 flex px-2 py-3 items-center space-x-8">
+                    <a href="#" class="text-sky-700 hover:text-sky-700 text-sm font-medium">Home</a>
+                    <a class="text-sky-800 bg-sky-100 hover:bg-sky-200 inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm "
+                        href="{% url 'login' %}">Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

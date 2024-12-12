@@ -1,0 +1,130 @@
+{% extends 'components/authLayout.html' %}
+
+{% block title %}Account{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto px-9 py-6">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold">All Users</h1>
+            <button 
+                onclick="toggleModal()" 
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                Add User
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div 
+            id="addUserModal" 
+            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded shadow-lg p-6 w-full max-w-md">
+                <h2 class="text-xl font-bold mb-4">Add User</h2>
+                <form method="POST" action="{% url 'create_user' %}">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="username" class="block text-gray-700">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            required 
+                            class="w-full border border-gray-300 rounded px-4 py-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            class="w-full border border-gray-300 rounded px-4 py-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            required 
+                            class="w-full border border-gray-300 rounded px-4 py-2">
+                    </div>
+                    <div class="mb-4">
+                        <label for="role" class="block text-gray-700">Role</label>
+                        <select 
+                            id="role" 
+                            name="role" 
+                            required 
+                            class="w-full border border-gray-300 rounded px-4 py-2">
+                            <option value="user">User</option>
+                            <option value="staff">Staff</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="flex justify-end">
+                        <button 
+                            type="button" 
+                            onclick="toggleModal()" 
+                            class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 mr-2">
+                            Cancel
+                        </button>
+                        <button 
+                            type="submit" 
+                            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border border-gray-200 rounded shadow-md">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="px-4 py-2 border">ID</th>
+                        <th class="px-4 py-2 border">Username</th>
+                        <th class="px-4 py-2 border">Email</th>
+                        <th class="px-4 py-2 border">Role</th>
+                        <th class="px-4 py-2 border">Date Joined</th>
+                        <th class="px-4 py-2 border">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr class="hover:bg-gray-100">
+                        <td class="px-4 py-2 border">{{ user.id }}</td>
+                        <td class="px-4 py-2 border">{{ user.username }}</td>
+                        <td class="px-4 py-2 border">{{ user.email }}</td>
+                        <td class="px-4 py-2 border">
+                            {% if user.is_superuser %}
+                                Admin
+                            {% elif user.is_staff %}
+                                Staff
+                            {% else %}
+                                User
+                            {% endif %}
+                        </td>
+                        <td class="px-4 py-2 border">{{ user.date_joined }}</td>
+                        <td class="px-4 py-2 border">
+                            <a href="{% url 'user_detail' user.id %}" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">
+                                View
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center px-4 py-2 border">No users found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal() {
+            const modal = document.getElementById('addUserModal');
+            modal.classList.toggle('hidden');
+        }
+    </script>
+{% endblock %}
