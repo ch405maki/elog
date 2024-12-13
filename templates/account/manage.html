@@ -36,7 +36,7 @@
                         {% endif %}
                     </td>
                     <td class="px-2 py-2 border">{{ user.date_joined }}</td>
-                    <td class="px-2 py-2 border">
+                    <td class="px-2 py-2 border text-center">
                         <form method="POST" action="{% url 'delete_user' user.id %}" onsubmit="return confirm('Are you sure?');">
                             {% csrf_token %}
                             <button type="submit" class="bg-red-600 text-white px-2 py-0.5 rounded hover:bg-red-700">
